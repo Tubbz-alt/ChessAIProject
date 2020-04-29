@@ -199,7 +199,7 @@ namespace ChessAIProject
 
                         //TODO: find actual number of games available
 
-                        for (int j = 1; j < 10000; j++)
+                        for (int j = 1; j < 20058; j++)
                         {
                             while (Training)
                             {
