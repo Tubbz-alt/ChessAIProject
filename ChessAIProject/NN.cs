@@ -6,7 +6,7 @@ namespace ChessAIProject
     class NN
     {
         static int Resolution = 8;
-        public int NumLayers = 5;
+        public int NumLayers = 4;
         public int INCount = 8;
         public int NCount = 8;
         public int ONCount = 1;

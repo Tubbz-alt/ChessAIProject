@@ -40,7 +40,7 @@ namespace ChessAIProject
             ActiveBoard = new Board(new Player(true), new Player(false), new Piece[8, 8], true).initBoard();
             ActiveNN = new NN();
 
-            if (ResetNN) { ActiveNN.Init(); }
+            if (ResetNN) { ActiveNN.Init(); new Task(() => { IO.Write(ActiveNN, 0); }).Start(); }
             else { new Task(() => { ActiveNN = IO.Read(0); }).Start(); }
            
             MaximizeBox = false;
@@ -230,9 +230,8 @@ namespace ChessAIProject
                                 }
                                 //Batch descent
                                 ActiveNN.Run(moves.Count);
-                                if (j % SaveEveryX == 0) { new Task(() => { IO.Write(ActiveNN, 0); }).Start(); }
-                                //Enable button in case it was disabled before continuing
-                                Invoke(new Action(() => { Buttons[1].Enabled = true; }));
+                                //Enable button in case it was disabled before continuing (once save is finished)
+                                if (j % SaveEveryX == 0) { new Task(() => { IO.Write(ActiveNN, 0); Invoke(new Action(() => { Buttons[1].Enabled = true; })); }).Start(); }
                             }
                         }
                     });
