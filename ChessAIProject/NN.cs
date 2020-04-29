@@ -77,6 +77,7 @@ namespace ChessAIProject
                 {
                     //Set piece values equal to standard chess piece values
                     Piece p = board.Pieces[i, ii];
+                    
                     //Don't have to set empty piece = 0 b/c array initialization does it automatically
                     if (p is Empty) { continue; }
                     if (p is Pawn) { input[i, ii] = 1; }
@@ -86,9 +87,11 @@ namespace ChessAIProject
                     if (p is King) { input[i, ii] = 15; }
 
                     //Set black piece values to negative
-                    if (p.Player.IsW == false) { input[i, ii] *= -1; }
+                    if (p.Player.IsW != player.IsW) { input[i, ii] *= -1; }
                 }
             }
+            //Ensure player is always at the bottom
+            if (!player.IsW) { input = ArrayInverse(input); }
             //Score
             for (int i = 0; i < Layers.Count; i++)
             {
@@ -96,6 +99,18 @@ namespace ChessAIProject
                 Layers[i].Calculate(Layers[i - 1].Values, i == Layers.Count - 1);
             }
             return Layers[Layers.Count - 1].Values[0];
+        }
+        private T[,] ArrayInverse<T>(T[,] matrix)
+        {
+            var matrixinverse = new T[matrix.GetLength(0), matrix.GetLength(1)];
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int ii = 0; ii < matrix.GetLength(1); ii++)
+                {
+                    matrixinverse[i, ii] = matrix[7 - i, 7 - ii];
+                }
+            }
+            return matrixinverse;
         }
         public Board Move(Board board)
         {
