@@ -30,7 +30,7 @@ namespace ChessAIProject
         private int tilesize;
         double ImageScale = 1;
         double LastScale = 0;
-        bool ResetNN = true;
+        bool ResetNN = false;
         int SaveEveryX = 1;
         int MaxMoves = 50;
         bool[] VsAI = new bool[3];

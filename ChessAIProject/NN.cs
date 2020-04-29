@@ -6,9 +6,9 @@ namespace ChessAIProject
     class NN
     {
         static int Resolution = 8;
-        public int NumLayers = 3;
-        public int INCount = 64;
-        public int NCount = 30;
+        public int NumLayers = 5;
+        public int INCount = 8;
+        public int NCount = 8;
         public int ONCount = 1;
         public List<Layer> Layers { get; set; }
         public static double Momentum = .9;
